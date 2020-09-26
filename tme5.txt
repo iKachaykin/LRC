@@ -1,0 +1,53 @@
+Kachaikin Ivan
+Compte rendu de TME 5 de l’UE LRC
+Le 21 Octobre 2019
+
+Partie Echauffement
+
+Pendant l'exécution de cette partie, j’ai appris comment on peut créer une nouvelle propre logique sur LoTREC. Ensuite, j’ai observé comment on peut y définir des règles déterminant un modèle. En utilisant ces connaissances obtenues, j’ai créé un modèle de Kripke proposé à l’exercice de TME 5 donné par la spécification suivante :
+  -W = {w1, w2};
+  -R = {(w1, w2)};
+  -PI est défini par PI(P) = {w1, w2}, PI(Q) = {w2}.
+Puis, j’ai modifié la stratégie par défaut de ma logique pour que LoTREC puisse construire les pré-modèles.
+
+Partie Vérification
+
+1. Pour cette partie, j’ai reconstruit le modèle de Kripke de partie précédente. Puis, j’ai vérifié les formules suivantes: M, w1 |= P; M, w1 |= pos Q; M, w2 |= nec P.
+2. Pour cet exercice je propose le modèle avec la spécification suivante :
+  -W = {w1, w2};
+  -R = {(w1, w2), (w2, w2)};
+  -PI est défini par PI(P) ={w2}, PI(Q) = {w1}, PI(~P) = {w1}, PI(~Q) = {w2}.
+En utilisant LoTREC, c’est bien possible de montrer que les deux contraintes indiquées sont vérifiées pour ce modèle.
+3. Afin de réaliser le connecteur d'implication, j'ai fait les actions suivantes:
+  -on ajoute un nouveau connecteur sur la liste de connecteurs avec "imp" : Name, 2 : Arity, "_->_" : Display;
+  -on doit réaliser une règle pour Top_Down_Strategy; on ajoute donc une nouvelle règle avec une condition "hasElement w isItTrue imp variable A variable B" et des actions:
+    1) "add w isItTrue variable A";
+    2) "add w isItTrue variable B";
+  -on ajoute cette règle dans la stratégie entre Or_Top_Down et Nec_Top_Down;
+  -de même manière, on implémente des règles pour Bottom_Up_Strategy; on doit faire cela pour tous les cas possible; par exemple, pour le cas où on vérifie (A->B) et A <-> FAUX, on réalise une règle avec des conditions:
+    1) "hasElement w isItTrue imp variable A variable B";
+    2) "isMarkedExpression w isItTrue variable A No";
+et avec une action "markExpressions w isItTrue imp variable A variable B Yes"; on fait comme cela pour les cas où A <-> VRAI & B <-> FAUX et où A <-> VRAI & B <-> VRAI en marquant "imp variable A variable B" par "No" et "Yes" respectivement;
+  -on ajoute les règles obtenues dans la stratégie entre les règles pour "or" et celles pour "nec".
+En testant notre nouveau connecteur pour le modèle d'exercice 1, on peut obtenir:
+  - M, w1 |= P -> [] (Q v P) <-> VRAI;
+  - M, w1 |= P -> (~~P) <-> VRAI;
+  - M, w1 |= P -> (~P) <-> FAUX;
+  - M, w1 |= P -> P <-> VRAI;
+  - M, w1 |= Q -> P <-> VRAI;
+  - M, w1 |= P -> Q <-> FAUX;
+  - M, w1 |= A -> (B -> A) <-> VRAI;
+  - M, w1 |= (A -> (B -> C)) -> ((A -> B) -> (A -> C)) <-> VRAI;
+  - M, w1 |= (~B -> ~A) -> (A -> B) <-> VRAI.
+
+Partie Satisfiabilité
+
+1. On peut constater qu’une formule n’est pas satisfiable. De plus, on peut voir que pour montrer (in)satisfiabilité des formules LoTREC utilise la méthode des tableaux.
+2. On passe à LoTREC des requêtes suivantes:
+  and P pos (and Q nec not P)
+  or (and P not P) pos pos pos P
+  or Q (imp P pos (or Q not P)
+On voit que pour toutes les formules il existe des feuilles ouvertes. Ça veut dire que toutes les formules sont satisfiables.
+3. Comme toujours en utilisant la méthode des tableaux, on doit passer à LoTREC une requête suivante:
+  not (imp (nec (imp P Q)) (imp nec P nec Q)
+On obtient qu'une formule ~([](p -> q) -> ([]p -> []q)) est insatisfiable. Par conséquent, la formule donnée est valide.

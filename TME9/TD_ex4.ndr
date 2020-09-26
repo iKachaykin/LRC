@@ -1,0 +1,27 @@
+p 155.0 50.0 p0 1 n
+t 155.0 125.0 t0 0 w n
+p 50.0 140.0 p1 0 n
+p 255.0 140.0 p4 0 n
+t 50.0 205.0 t1 0 w n
+p 50.0 280.0 p2 0 w
+t 50.0 345.0 t2 0 w n
+p 50.0 420.0 p3 0 w
+p 165.0 530.0 p6 0 w
+t 165.0 465.0 t3 0 w n
+t 255.0 295.0 t4 0 w n
+p 255.0 430.0 p5 0 e
+e p5 t3 4 n
+e t4 p5 1 n
+e p4 t4 1 n
+e t0 p4 4 n
+e t3 p6 1 n
+e p3 t3 1 n
+e t2 p3 1 n
+e p2 t2 1 n
+e t1 p2 1 n
+e p1 t1 1 n
+e t0 p1 1 n
+e p0 t0 1 n
+h TD_ex4
+
+

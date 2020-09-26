@@ -1,0 +1,37 @@
+Kachaikin Ivan
+Compte rendu de TME 6 de l’UE LRC
+Le 18 Novembre 2019
+
+Exercice 1
+En ayant ouvert une logique prédéfinie indiquée, pour observer si une formule est satisfiable on compose notre formule et on choisit à vérifier une satisfiabilité. Comme toujours, pour montrer qu'une formule F est valide (ou pas valide) on montre qu'une formule ~F est insatisfiable (ou satisfiable).
+Des formules à passer sur LoTREC :
+1) imp nec P not nec not nec P (not imp nec P not nec not nec P) : satisfiable et valide;
+2) and nec P nec nec not P (not and nec P nec nec not P) : insatisfiable;
+3) imp nec P nec nec not P (not imp nec P nec nec not P) : satisfiable mais pas valide.
+À propos des règles, on a des instructions comment on réécrit des tableaux du pas au pas. Il y a aussi des règles qui détermine la réflexivité, la symétrie et la transitivité de relation R. Finalement, il y a une règle qui cherche dans tous les mondes accessibles un monde où une formule est vraie. Cela a pour l'objectif de traiter "Pos".
+Pour stratégies, on a une qui contient des règles de la méthode des tableaux et une autre qui a celles de manière de S5.
+
+Exercice 2
+Pour S5, on passe à LoTREC une formule : not equiv not nec P nec not nec P, et on voit qu'elle n'est pas satisfiable. Alors, une formule donnée est valide.
+Pour S4, on fait exactement les mêmes actions mais on voit qu'une formule n'est pas valide.
+On peut observer ce résultat parce que dans S4 il n'y a pas d'axiome 5. C'est-à-dire, ce n'est pas toujours vrai que ~KF -> K~KF. Donc, cela ne peut pas être toujours vrai que ~KF <-> K~KF dans S4.
+
+Exercice 3
+1) Pour cette exercice, j'ai introduit sur LoTREC le modèle avec une structure suivante :
+W = {w1, w2, w3},
+RA = {(w1, w1), (w2, w2), (w3, w3)},
+RB = {(w1, w1), (w2, w2), (w3, w3), (w1, w2), (w2, w1)},
+RC = {(w1, w1), (w2, w2), (w3, w3), (w1, w2), (w2, w1), (w2, w3), (w3, w2), (w1, w3), (w3, w1)},
+I(PA) = w1, I(PB) = w2, I(PC) = w3,
+en utilisant des fonctions commune (createNewNode, link, add).
+2) Ensuite, pour montrer que A peut toujours savoir si elle a le papillon sur la tête j'ai ajouté quelques actions sur une règle ExampleOfModelAndFormula : " add " une formule isItTrue or nec RA PA nec RA not PA pour tous les mondes du modèle. En même temps, pour C on fait de même manière mais ajoutant toujours une formule isItTrue not or nec RC PC nec RC not PC.
+3) Pour déterminer si B peut savoir si elle a un papillon sur la tête, on ajoute pour tous les mondes une formule : isItTrue or nec RB PB nec RB not PB. LoTREC répond que cette formule est vraie uniquement dans le monde w3 où le papillon est sur la tête de C. Par conséquent, on peut déduire qu'une proposition donnée est vraie.
+4) En ajoutant une formule isItTrue nec RA not or nec RC PC nec RC not PC dans tous les mondes, on peut obtenir qu'il est vrai que A sait que C ne sait pas si elle a un papillon sur la tête.
+5)  En ajoutant une formule isItTrue or not or nec RB PB nec RB not PB nec RA or nec RB PB nec RB not PB dans tous les mondes, on peut obtenir qu'il est vrai que quand B sait si elle a un papillon sur la tête, alors A sait qu'elle (B) le sait.
+
+Exercice 4
+Je propose des relations suivantes :
+R1 = {(w1, w2), (w2, w1), (w2, w2), (w3, w3), (w3, w4)},
+R2 = {(w1, w2), (w2, w1), (w3, w4), (w4, w3)},
+R3 = {(w1, w1), (w1, w3), (w2, w2), (w2, w4), (w3, w1), (w3, w3), (w4, w2), (w4, w4)}.
+En passant ce modèle à LoTREC, on peut facilement montrer que toutes les formules données sont valides.

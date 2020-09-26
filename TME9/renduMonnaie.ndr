@@ -1,0 +1,68 @@
+t 345.0 430.0 insert50c n 0 w n {} ne
+t 345.0 515.0 insert1e n 0 w n {} ne
+t 345.0 600.0 insert2e n 0 w n {} ne
+p 235.0 600.0 2e_fournis 2 n
+p 235.0 430.0 {50с_fournis} 0 n
+p 235.0 515.0 1e_fournis 0 n
+p 645.0 650.0 50c_stock 0 n
+p 525.0 650.0 1e_stock 1 n
+p 420.0 650.0 2e_stock 0 n
+t 645.0 730.0 recharge s 0 w n {} ne
+p 960.0 265.0 {qté rendu1e} 0 n
+p 960.0 375.0 {qté rendu50c} 0 n
+t 345.0 330.0 {calculer montant à regler} n 0 w n {} ne
+t 555.0 455.0 {calculer min} e 0 w n {} ne
+p 450.0 515.0 {argent inséré} 0 se
+t 845.0 375.0 rendu50c n 0 w n {} ne
+t 845.0 265.0 rendu1e n 0 w n {} ne
+t 450.0 195.0 {découvrir manque d'argent} s 0 w n {} ne
+t 680.0 195.0 {remplir rendu} n 0 w n {} ne
+p 450.0 105.0 {manque d'argent} 0 n
+p 680.0 400.0 {montant à rendre} 0 n
+t 845.0 485.0 {rendu50c 1e_stock vide} s 0 w n {} ne
+p 550.0 195.0 {min entre deux} 0 n
+p 450.0 390.0 {montant à regler} 0 ne
+p 235.0 330.0 {quantité} 4 n
+e insert2e {argent inséré} 200 s
+e insert1e {argent inséré} 100 nw
+e insert50c {argent inséré} 50 n
+e {quantité} {calculer montant à regler} 1 n
+e recharge 0.1785834617 29.96664813 50c_stock 0.8066012093 37.33630944 10 e
+e 50c_stock 0.6639895652 29.15475947 recharge 0.3423103086 34.66987165 ?-1 n
+e 2e_fournis insert2e 1 n
+e 1e_fournis insert1e 1 n
+e {50с_fournis} insert50c 1 n
+e {calculer montant à regler} {montant à regler} 50 n
+e insert50c 0.943945949 249.3030285 50c_stock 0.3874302681 101.9574053 1 n
+e insert1e 1e_stock 1 n
+e insert2e 2e_stock 1 n
+e {argent inséré} {calculer min} 1 n
+e {montant à regler} {calculer min} 1 n
+e rendu50c {qté rendu50c} 1 n
+e rendu1e {qté rendu1e} 1 n
+e {calculer min} {min entre deux} 1 n
+e {remplir rendu} {montant à rendre} 1 n
+e {découvrir manque d'argent} {manque d'argent} 1 n
+e {argent inséré} 0.1329954708 126.7320007 {découvrir manque d'argent} 0.5071750574 133.1352696 ?-1 n
+e {montant à rendre} rendu1e 100 n
+e {montant à rendre} 0.9139895652 52.47856705 rendu50c 0.6204539526 49.51767361 50 n
+e {montant à rendre} rendu50c ?-100 n
+e 50c_stock rendu50c 1 n
+e 1e_stock 0.8305391207 643.6715001 rendu1e 0.1161671385 356.931366 1 n
+e {montant à rendre} {rendu50c 1e_stock vide} 50 n
+e 1e_stock 0.772697871 197.0 {rendu50c 1e_stock vide} 0.7260079683 319.62478 ?-1 n
+e {rendu50c 1e_stock vide} {qté rendu50c} 1 n
+e {montant à regler} {remplir rendu} ?-1 n
+e {argent inséré} 0.9803189659 178.3619915 {remplir rendu} 0.646993064 107.8007421 1 n
+e {50с_fournis} 0.3876049236 134.0634178 {découvrir manque d'argent} 0.4544206412 169.9205697 ?-1 n
+e 1e_fournis 0.3827845876 202.4746898 {découvrir manque d'argent} 0.4490318614 209.6592474 ?-1 n
+e 2e_fournis 0.3767962549 313.2682557 {découvrir manque d'argent} 0.4021733529 187.2778684 ?-1 n
+e {quantité} 0.3031622465 231.8124242 {remplir rendu} 0.2898026102 189.9078724 ?-1 n
+e {montant à regler} {découvrir manque d'argent} 1 n
+e {argent inséré} 0.1506586928 207.0386437 rendu1e 0.4477780968 99.2975327 ?-1 n
+e {argent inséré} 0.02995638297 106.8877916 rendu50c 0.7185835209 81.58431222 ?-1 n
+e {argent inséré} 0.005784903553 55.03635162 {rendu50c 1e_stock vide} 0.5372013826 86.34813258 ?-1 n
+e 50c_stock {rendu50c 1e_stock vide} 1 n
+h renduMonnaie
+
+

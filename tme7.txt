@@ -1,0 +1,47 @@
+Kachaikin Ivan
+Compte rendu de TME 7 de l’UE LRC
+Le 25 Novembre 2019
+
+Exercice 1
+
+Question 3
+En ayant exécuté le code correspondant à la première séquence des annonces on peut voir qu'à la fin on a un modèle de Kripke qui contient juste un seul monde ('r', 'v', 'j'). Donc a possède d'une carte rouge, b possède de celle verte et c possède de celle jaune.
+Pour la deuxième séquence, j'écris les actions qui doit être faites après chaque annonce :
+- on supprime tous les mondes du model0 où c possède la carte jaune;
+- on supprime tous les mondes du model0 où a ne possède pas la carte jaune car, sinon on aurait que a ne possède la carte jaune; de plus, il (a) sait que c ne possède la carte jaune; donc a sait que c'est b qui possède la carte jaune; alors on a une contradiction; par conséquent c'est a qui possède la carte jaune;
+- on supprime tous les mondes du model0 où b possède la carte verte (car on est dans S5).
+Après avoir pris en compte ces annonces, on obtiendrait un modèle de Kripke qui contient juste un seul monde ('j','r','v'). Alors a possède d'une carte jaune, b possède de celle rouge et c possède de celle verte.
+
+Question 4
+Oui, il existe bien une indépendance. Par exemple, si dans la première séquence on échange première et deuxième annonces, on obtiendra le résultat final différent. 
+
+Exercice 2
+
+Question 1
+On a un modèle de Kripke où les mondes sont représentés par les dates. Ici, Albert hésite entre les mondes où on a le même mois alors que Bernard hésite entre ceux du même jour. On peut vérifier qu'une structure donnée est exactement similaire que proposée par moi.
+
+Question 2
+Soit f1 : l'anniversaire est le 15 mai, f2 : ___ le 16 mai, ..., f10 : ___ le 17 août.
+Donc "l'agent i connaît la date de l'anniversaire" : M |= Ki f1 v Ki f2 v ... v Ki f10.
+On peut voir finalement que le code donné utilise la logique exactement la même. Ce type de formules est défini par une fonction knWhich fournie dans la source.
+
+Question 3
+En ayant déclaré tous ces trois annonces publiques on peut obtenir que Cheryl est née le 16 juillet. Après chaque annonce, la structure de Kripke évolue de manière suivante :
+(i) On sépare l'annonce dans deux pour ne pas utiliser une conjonction. D'abord, on annonce que Albert ne sait pas quelle est la date d'anniversaire de Cheryl. On voit que cet annonce ne change pas le modèle car il n'existe pas de mondes où Albert sait la date d'anniversaire. À l'inverse, ajoutant l'annonce "je sais que Bernard ne sait pas quelle est la date d'anniversaire" on doit supprimer du modèle tous les mondes où Bernard le sait.
+(ii) On supprime tous les mondes où Bernard sait la date d'anniversaire.
+(iii) On supprime finalement tous les mondes où Albert sait la date d'anniversaire.
+On obtient un modèle d'un seul monde correspondant au 16 juillet. 
+
+Question 4
+Oui, on voit que qu'une annonce d'Albert "Je ne sais pas quelle est la date d'anniversaire de Cheryl" est superflue car elle ne change pas le modèle.
+
+Exercice 3
+
+Question 1
+1) La donne : J1=('8', '8'), J2=('8', 'A'), J3=('A', 'A').
+On commence par le premier.
+J1 annonce qu'il ne sait pas ses cartes.
+J2 annonce qu'il ne sait pas ses cartes.
+J3 annonce qu'il ne sait pas ses cartes.
+J1 annonce qu'il ne sait pas ses cartes.
+J2 annonce qu'il sait qu'il a un as et un huit (car sinon soit J1, soit J2 saurait quelles cartes il a).

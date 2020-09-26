@@ -1,0 +1,27 @@
+p 180.0 50.0 p0 1 n
+t 180.0 125.0 t0 0 w n
+p 75.0 140.0 p1 0 n
+p 280.0 140.0 p4 0 n
+t 75.0 205.0 t1 50 75 w
+p 75.0 280.0 p2 0 w
+t 75.0 345.0 t2 20 30 w
+p 75.0 420.0 p3 0 w
+p 190.0 530.0 p6 0 w
+t 190.0 465.0 t3 0 15 n
+t 280.0 295.0 t4 10 20 e
+p 280.0 430.0 p5 0 e
+e p0 t0 1 n
+e t0 p1 1 n
+e p1 t1 1 n
+e t1 p2 1 n
+e p2 t2 1 n
+e t2 p3 1 n
+e p3 t3 1 n
+e t3 p6 1 n
+e t0 p4 4 n
+e p4 t4 1 n
+e t4 p5 1 n
+e p5 t3 4 n
+h TD_ex4_temporise
+
+

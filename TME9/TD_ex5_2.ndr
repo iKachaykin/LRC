@@ -1,0 +1,28 @@
+t 160.0 120.0 {entrée du client} w 1 500 n {} ne
+p 60.0 65.0 {client voudrait entrer} 7 n
+p 60.0 195.0 {nb de places disponibles dans une salle} 3 se
+p 245.0 120.0 {plénitude d'une salle} 0 n
+t 405.0 195.0 {barbier se réveille} w 0 w n {} ne
+p 515.0 195.0 {barbier est prêt} 0 s
+p 590.0 120.0 {rasage est fini} 0 n
+t 670.0 120.0 {client sort} e 0 w n {} ne
+p 670.0 50.0 {clients rasés} 0 n
+p 520.0 330.0 {barbier dort} 1 s
+t 515.0 120.0 rasage n 40 70 nw {} ne
+e {plénitude d'une salle} rasage 1 n
+e {barbier se réveille} 0.4552405049 46.84015371 {plénitude d'une salle} 0.8880163885 43.27817002 1 n
+e {client sort} {barbier dort} 1 n
+e {barbier dort} {barbier se réveille} 1 n
+e {client sort} 0.7393344546 298.6703869 {nb de places disponibles dans une salle} 0.8269604045 202.1806123 1 n
+e {client sort} {clients rasés} 1 n
+e {rasage est fini} {client sort} 1 n
+e rasage {rasage est fini} 1 n
+e {barbier est prêt} rasage 1 n
+e {barbier se réveille} {barbier est prêt} 1 n
+e {plénitude d'une salle} 0.9666347823 48.05205511 {barbier se réveille} 0.3846339702 46.75467891 1 n
+e {entrée du client} {plénitude d'une salle} 1 n
+e {client voudrait entrer} {entrée du client} 1 n
+e {nb de places disponibles dans une salle} {entrée du client} 1 n
+h TD_ex5_2
+
+

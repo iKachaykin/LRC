@@ -1,0 +1,23 @@
+t 230.0 110.0 {entrée du client} w 0 w n {} ne
+p 230.0 30.0 {client voudrait entrer} 10 w
+p 230.0 190.0 {client voudrait être rasé} 0 w
+t 345.0 190.0 rasage s 0 w n {} ne
+t 290.0 50.0 repose n 0 w n {} ne
+p 425.0 90.0 {barbier voudrait se reposer} 0 n
+p 315.0 120.0 {barbier est prêt} 1 n
+p 500.0 190.0 {client est rasé} 0 e
+t 500.0 110.0 sortie e 0 w n {} ne
+p 500.0 30.0 {client est parti} 0 e
+e {client voudrait être rasé} rasage 1 n
+e {barbier est prêt} rasage 1 n
+e repose {barbier est prêt} 1 n
+e {barbier voudrait se reposer} repose 1 n
+e rasage {barbier voudrait se reposer} 1 n
+e sortie {client est parti} 1 n
+e {client est rasé} sortie 1 n
+e rasage {client est rasé} 1 n
+e {entrée du client} {client voudrait être rasé} 1 n
+e {client voudrait entrer} {entrée du client} 1 n
+h TD_ex5_1
+
+

@@ -1,0 +1,98 @@
+/* OUAGUENOUNI Mohamed, KACHAIKIN Ivan */
+
+/*Exercice 3*/
+/*
+c(zoe).
+c(pascal).
+r(X) :- s(X).
+d(X) :- c(X).
+e(X) :- r(X).
+s(X) :- d(X).
+*/
+
+
+/*Exercice 4*/
+
+pere(abraham,homer).
+pere(jack,marge).
+pere(homer,bart).
+pere(homer,lisa).
+mere(marjorie,marge).
+mere(marge,bart).
+mere(marge,lisa).
+parent(X,Y) :- pere(X,Y).
+parent(X,Y) :- mere(X,Y).
+parent(X,Y,Z) :- pere(X,Z) , mere(Y,Z).
+grandpere(X,Y) :- pere(X,Z) , parent(Z,Y).
+frereousoeur(X,Y) :- parent(A,B,X) , parent(A,B,Y).
+ancetre(X,Y) :- pere(X,Y).
+ancetre(X,Y) :- pere(X,Z) , ancetre(Z,Y).
+ancetre(X,Y) :- mere(X,Y).
+ancetre(X,Y) :- mere(X,Z) , ancetre(Z,Y).
+
+/*Test et résultats obtenus*/
+
+/*Prédicat parent/2 : on essaye de trouver les parents de bart*/
+/*
+?- parent(X,bart).
+X = homer ;
+X = marge.
+*/
+
+/* Prédicat parent/3 */
+/*
+?- parent(X,Y,bart).
+X = homer,
+Y = marge.
+*/
+
+/*Prédicat grand pere */
+/*
+?- grandpere(X,lisa).
+X = abraham ;
+X = jack .
+*/
+
+/*prédicat frereousoeur */
+/*
+?- frereousoeur(X,Y).
+X = Y, Y = bart ;
+X = bart,
+Y = lisa ;
+X = lisa,
+Y = bart .
+*/
+
+/*prédicat ancetre*/
+/*
+?- ancetre(X,lisa).
+X = homer ;
+X = abraham ;
+X = jack ;
+X = marge ;
+X = marjorie ;
+
+*/
+
+/*Exercice 05*/
+et(0,1,0).
+et(1,0,0).
+et(0,0,0).
+et(1,1,1).
+ou(0,0,0).
+ou(0,1,1).
+ou(1,0,1).
+ou(1,1,1).
+non(0,1).
+non(1,0).
+xor(X,Y,Z) :- non(X, NX), non(Y, NY), et(X,NY,Z1), et(NX,Y,Z2), ou(Z1,Z2,Z).
+circuit(X,Y,Z) :-et(X,Y,Z1), non(Z1, Z2), non(X, Z3), xor(Z2,Z3,Z4),non(Z4,Z).
+
+/*
+pour mettre en place circuit(X, Y, Z) on a implémenté opération binaire
+xor(X, Y, Z) t.q.
+Z = 1 si et seulement si non(X ~ Y) = 1
+TEST de xor:
+
+*/
+

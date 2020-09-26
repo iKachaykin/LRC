@@ -1,0 +1,236 @@
+/* KACHAIKIN Ivan */
+
+/* une concaténation de liste vide et Z est Z*/
+concatene([], Z, Z).
+/* une loi recursive pour la concaténation*/
+concatene([TX | RX], Y, [TX | RZ]) :- concatene(RX, Y, RZ).
+
+/* TESTS DU PREDICAT 
+
+?- concatene([a, b, c], [d, w, r], X).
+X = [a, b, c, d, w, r].
+
+?- concatene([a, b, c], [], X).
+X = [a, b, c].
+
+?- concatene(X, [a, b, c], [d, v, a, b, c]).
+X = [d, v] .
+
+?- concatene([a, [x, y], b, c], [[b, c], [i, [k, j]]], X).
+X = [a, [x, y], b, c, [b, c], [i, [k|...]]].
+
+?- concatene(X, Y, [a, b, c, d]).
+X = [],
+Y = [a, b, c, d] ;
+X = [a],
+Y = [b, c, d] ;
+X = [a, b],
+Y = [c, d] ;
+X = [a, b, c],
+Y = [d] ;
+X = [a, b, c, d],
+Y = [] ;
+false.
+
+*/
+
+/* l'inverse d'une liste vide est une liste vide */
+inverse([], []).
+/* l'inverse d'une liste [X, Y] est une liste [Y, X] */
+inverse([X, Y], [Y, X]).
+/* une loi recursive pour l'obtention de l'inverse d'une liste */
+inverse([TX | RX], Y) :- inverse(RX, TEMP), concatene(TEMP, [TX], Y).
+
+/* TESTS DU PREDICAT
+
+?- inverse([a, b, c, d], Y).
+Y = [d, c, b, a] .
+
+?- inverse([b, c, [a, d]], Y).
+Y = [[a, d], c, b] .
+
+?- inverse(X, [d, c, b, a]).
+X = [a, b, c, d] .
+
+*/
+
+/* pour toute la variable, si on la supprime d'une liste vide on obtient une
+liste vide  */
+supprime([], _, []).
+/* si TX (tête de X) et Y sont unifiable on omet Y et
+on cherche Y dans le RX (reste de X) pour le supprimer */
+supprime([TX | RX], Y, Z) :- TX = Y, supprime(RX, Y, Z).
+/* si TX et Y ne sont pas unifiable on supprime Y de RX; par suite on obtient
+une nouvelle liste TEMP qu'on concaténe avec la tête */
+supprime([TX | RX], Y, Z) :- TX \= Y, supprime(RX, Y, TEMP), concatene([TX], TEMP, Z).
+/* on supprime la tête si elle est deuxième argument de predicat */
+supprime([TX | RX], TX, RX).
+
+/* TESTS DU PREDICAT
+
+?- supprime([a, b, c, a, b], a, Z).
+Z = [b, c, b] .
+
+?- supprime([a, b, c, a, b], k, Z).
+Z = [a, b, c, a, b] 
+
+?- supprime([a, b, c, a, b], X, [a, b, c]).
+false.
+
+?- supprime([a, b, c, a, b], c, [a, b, a, b]).
+true
+
+?- supprime([a, [b, c], a, d], Y, [[b,c], d]).
+Y = a .
+
+*/
+
+
+/* En filtrant X par une liste vide, on obtient X */
+filtre(X, [], X).
+/* Soit on doit filtrer X par Y = [TY | RY]. On supprimera donc TY de X
+obtenant une nouvelle liste TEMP et, ensuite, on filtrera TEMP par RY.
+Lorsque RY sera une liste vide on utilisera une loi précédenté.
+*/
+filtre(X, [TY | RY], Z) :- supprime(X, TY, TEMP), filtre(TEMP, RY, Z).
+
+/* TESTS DU PREDICAT
+?- filtre([1, 2, 3, 4, 2, 3, 4, 2, 4, 1], [2, 4], L).
+L = [1, 3, 3, 1] .
+
+?- filtre([1, 2, 3, 4, 4, 1, 2, 3, 1, 1, 4, 1, 3], [1, 2], [3, 4, 4, 3, 4, 3]).
+true .
+
+?- filtre([1, 2, 3, 4, 4, 1, 2, 3, 1, 1, 4, 1, 3], [1, 2], [3, 4, 3, 4, 4, 3]).
+false.
+
+?- filtre([1, 2, 3, 4, 4, 1, 2, 3, 1, 1, 4, 1, 3], [1, 2, 3, 4], L).
+L = [] .
+
+*/
+
+/* predicat palindrom utilisant l'inverse; X et palindrom si X = Y, où
+inverse(X, Y) */
+palindrom(X) :- inverse(X, X).
+
+/* TESTS DU PREDICAT
+
+?- palindrom([a, b, b, a]).
+true .
+
+?- palindrom([a, b, c, a]).
+false.
+
+?- palindrom([]).
+true.
+
+?- palindrom([a]).
+true.
+
+?- palindrom([X, Y, Z, U]).
+X = U,
+Y = Z .
+
+?- palindrom([a, b, a, b, a]).
+true .
+
+?- palindrom([a, b, a, X, Y]).
+X = b,
+Y = a .
+
+*/
+
+/* pour définir predicat sans l'inverse, on définira certains predicats
+auxiliaire */
+
+/* predicat dernier/2 tel que dernier(X, D) est satisfait si D est un dernier
+élément d'une liste X */
+/* si RX (reste de X) n'est pas encore vide ça veut dire que la tête d'une
+liste n'est pas son dernier élément; donc on va chercher un dernier élément
+d'une liste RX */
+dernier([_ | RX], DERNIER) :- RX \= [], dernier(RX, DERNIER).
+/* si RX (reste de X) est une liste vide alors le dernier élément de X est
+sa tête TX */
+dernier([TX | RX], DERNIER) :- RX = [], DERNIER = TX.
+
+/* TESTS DU PREDICAT
+
+?- dernier([a, b, c, a, b], b).
+true .
+
+?- dernier([a, b, c, a, b], c).
+false.
+
+?- dernier([a, b, c, a, b], a).
+false.
+
+?- dernier([a, b, c, a, b], X).
+X = b .
+
+?- dernier([a, b, c, a, X], Y).
+X = Y .
+
+?- dernier([a, b, c, a, X], b).
+X = b .
+
+*/
+
+/* predicat supprime_dernier/2 tel que supprime_dernier(X, Y) est satisfait si
+Y est une liste obtenu de X en supprimant son dernier élément.*/
+supprime_dernier(X, Y) :- dernier(X, DX), concatene(Y, [DX], X).
+
+/* TESTS DU PREDICAT
+
+?- supprime_dernier([a, b, c, d], [a, b, c]).
+true .
+
+?- supprime_dernier([a, b, c, d], [a, b, c, a]).
+false.
+
+?- supprime_dernier([a, b, c, d], X).
+X = [a, b, c] .
+
+?- supprime_dernier([a, b, c, Y], X).
+X = [a, b, c] .
+
+?- supprime_dernier([Y, b, c, a], X).
+X = [Y, b, c] .
+
+*/
+
+/* une liste vide est un palindrome*/
+palindrom2([]).
+/* une liste avec un seul élément est un palindrome */
+palindrom2([_]).
+/* une liste avec deux éléments égaux est un palindrome*/
+palindrom2([X, X]).
+/* une liste X est un palindrom si sa tête est égal à son dernier élément et si
+X[1:n-1] est un palindrome */
+palindrom2([TX | RX]) :- dernier(RX, DERNIER), TX = DERNIER, supprime_dernier(RX, RXSD), palindrom2(RXSD).
+
+/* TESTS DU PREDICAT
+
+?- palindrom2([a, b, b, a]).
+true .
+
+?- palindrom2([a, b, c, a]).
+false.
+
+?- palindrom2([]).
+true.
+
+?- palindrom2([a]).
+true .
+
+?- palindrom2([X, Y, Z, U]).
+X = U,
+Y = Z .
+
+?- palindrom2([a, b, a, b, a]).
+true .
+
+?- palindrom2([a, b, a, X, Y]).
+X = b,
+Y = a .
+
+*/
